@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="LoginDemo"
-  id="myeclipse.1443429064628"
-  context-root="/LoginDemo"
+  name="AutoCS"
+  id="myeclipse.1443440510941"
+  context-root="/AutoCS"
   j2ee-spec="5.0"
-  archive="LoginDemo.war">
+  archive="AutoCS.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>
