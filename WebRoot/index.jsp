@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
+=======
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
+>>>>>>> b59dc1f50a8c3b0709f9ef484b18bebdedb37b09
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -21,6 +25,7 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+<<<<<<< HEAD
 </head>
 
 <body>
@@ -37,4 +42,18 @@
 	<br>
 
 </body>
+=======
+  </head>
+  
+  <body>
+    Welcome. <br>
+    
+   <form action="UploadServlet" method="post" enctype="multipart/form-data">
+    	请选择excel文件<input id="myfile" name="myfile" type="file" >
+    	<input type="submit" value="提交"/>
+    </form>
+    <br>
+<!-- 	<a href="CourseTableServlet">servlet</a> -->
+  </body>
+>>>>>>> b59dc1f50a8c3b0709f9ef484b18bebdedb37b09
 </html>

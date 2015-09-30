@@ -87,7 +87,11 @@ public class CourseSqlUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
+<<<<<<< HEAD
 			SqlHelper.close();
+=======
+			
+>>>>>>> b59dc1f50a8c3b0709f9ef484b18bebdedb37b09
 		}
 		return res;
 	}
