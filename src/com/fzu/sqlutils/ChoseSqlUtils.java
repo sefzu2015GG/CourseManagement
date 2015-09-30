@@ -11,13 +11,13 @@ public class ChoseSqlUtils {
 	}
 
 	private String tableName = "";
-
+	
 	public ChoseSqlUtils(String tableName) {
 		this.tableName = tableName;
 		CreateTable();
 	}
 
-	public void CreateTable() {
+	private void CreateTable() {
 		String sql = "create table if not exists " + tableName + "_choseInfo ("
 				+ "chosenum varchar(32),"
 				+ "coursenum varchar(16)," + "weektime varchar(10),"
@@ -75,6 +75,7 @@ public class ChoseSqlUtils {
 
 	public List<ChoseBean> GetChose() {
 		String sql = "select * from " + tableName + "_choseInfo";
+		System.out.println(sql);
 		List<ChoseBean> res = new ArrayList<ChoseBean>();
 		ResultSet resultSet = SqlHelper.executeQuery(sql, null);
 
@@ -91,6 +92,8 @@ public class ChoseSqlUtils {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			SqlHelper.close();
 		}
 		return res;
 	}

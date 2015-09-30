@@ -8,17 +8,22 @@ import java.util.List;
 public class CourseSqlUtils {
 
 	public static void main(String[] arg0) {
-		CourseSqlUtils courseSqlUtils = new CourseSqlUtils("test");
+		CourseSqlUtils courseSqlUtils = new CourseSqlUtils("test1");
+		List<CourseBean> list = courseSqlUtils.GetCousertable();
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getCoursename());
+		}
 	}
 
 	private String tableName = "";
 
 	public CourseSqlUtils(String tableName) {
+		System.out.println(tableName);
 		this.tableName = tableName;
 		CreateTable();
 	}
 
-	public void CreateTable() {
+	private void CreateTable() {
 		String sql = "create table if not exists " + tableName
 				+ "_courseInfo (" + "coursenum varchar(16) primary key,"
 				+ "Grade varchar(8)," + "marjor varchar(64),"
@@ -54,33 +59,42 @@ public class CourseSqlUtils {
 
 	public List<CourseBean> GetCousers() {
 		String sql = "select * from " + tableName + "_courseInfo";
+		System.out.println(sql);
 		List<CourseBean> res = new ArrayList<CourseBean>();
 		ResultSet resultSet = SqlHelper.executeQuery(sql, null);
 		try {
-			while (resultSet.next()) {
-				CourseBean bean = new CourseBean();
-				bean.setCoursenum(resultSet.getString(1));
-				bean.setGrade(resultSet.getString(2));
-				bean.setMajor(resultSet.getString(3));
-				bean.setPeoplenum(Integer.parseInt(resultSet.getString(4)));
-				bean.setCoursename(resultSet.getString(5));
-				bean.setType(resultSet.getString(6));
-				bean.setPeriod(Integer.parseInt(resultSet.getString(7)));
-				bean.setTestperiod(Integer.parseInt(resultSet.getString(8)));
-				bean.setFuckcomputerperiod(Integer.parseInt(resultSet
-						.getString(9)));
-				res.add(bean);
+			if (resultSet != null){
+				
+				while (resultSet.next()) {
+					CourseBean bean = new CourseBean();
+					bean.setCoursenum(resultSet.getString(1));
+					bean.setGrade(resultSet.getString(2));
+					bean.setMajor(resultSet.getString(3));
+					bean.setPeoplenum(Integer.parseInt(resultSet.getString(4)));
+					bean.setCoursename(resultSet.getString(5));
+					bean.setType(resultSet.getString(6));
+					bean.setCredit(Float.parseFloat(resultSet.getString(7)));
+					bean.setPeriod(Integer.parseInt(resultSet.getString(8)));
+					bean.setTestperiod(Integer.parseInt(resultSet.getString(9)));
+					bean.setFuckcomputerperiod(Integer.parseInt(resultSet
+							.getString(10)));
+					res.add(bean);
+				}
+			}else{
+				System.out.println("result is null!!!!!");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			SqlHelper.close();
 		}
 		return res;
 	}
 
 	public List<CourseBean> GetCousertable() {
 
-		ChoseSqlUtils choseSqlUtils = new ChoseSqlUtils(tableName);
+		ChoseSqlUtils choseSqlUtils = new  ChoseSqlUtils(tableName);
 		List<ChoseBean> choseList = choseSqlUtils.GetChose();
 		List<CourseBean> courseList = GetCousers();
 		for (int i = 0; i < choseList.size(); i++) {

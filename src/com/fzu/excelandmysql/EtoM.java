@@ -34,20 +34,25 @@ public class EtoM {
 	private static ChoseSqlUtils choseSqlUtils = null;
 	
 	/**
-	 * 
+	 * 构造函数，使用Excel文件创建按数据表
 	 * @param filePath excel表格的路径，由调用者提供
 	 * @param tablename 数据库建表表名，以excel表为名
 	 */
 	public EtoM(String filePath, String tablename) {
 		this.filePath = filePath;
 		this.tablename = tablename;
-		courseSqlUtils = new CourseSqlUtils(tablename);
-		choseSqlUtils = new ChoseSqlUtils(tablename);
+		courseSqlUtils =getCourseSqlUtils(tablename);
+		choseSqlUtils = getChoseSqlUtils(tablename);
 		List<CourseBean> data = getExcelFile();
-		outpr(data);
+		//outpr(data);
 		courseSqlUtils.insert(data);
 	}
 
+	/**
+	 * 根据表名获取相应表的sql工具
+	 * @param tablename
+	 * @return
+	 */
 	public static CourseSqlUtils getCourseSqlUtils( String tablename) {
 		if(courseSqlUtils==null){
 			courseSqlUtils = new CourseSqlUtils(tablename);
@@ -92,7 +97,7 @@ public class EtoM {
 			int col = sheet.getColumns();
 			System.out.println("row = " + row + ", col = " + col);
 
-			for (int i = 0; i < row; i++) {
+			for (int i = 3; i < row; i++) {
 				CourseBean bean = new CourseBean();
 
 				bean.setCoursenum("031202" + i);
