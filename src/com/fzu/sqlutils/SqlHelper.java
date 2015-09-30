@@ -58,7 +58,6 @@ public class SqlHelper {
 
 			Class.forName(driver);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
 			if (fileInputStream != null) {

@@ -92,7 +92,7 @@ public class EtoM {
 			int col = sheet.getColumns();
 			System.out.println("row = " + row + ", col = " + col);
 
-			for (int i = 0; i < row; i++) {
+			for (int i = 3; i < row; i++) {
 				CourseBean bean = new CourseBean();
 
 				bean.setCoursenum("031202" + i);

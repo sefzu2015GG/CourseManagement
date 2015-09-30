@@ -20,7 +20,8 @@ public class CourseTableServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=utf-8");
 //		PrintWriter out = response.getWriter();
-		CourseSqlUtils courseSqlUtils = new CourseSqlUtils("test1");
+		String tablename = (String) request.getAttribute("tablename");
+		CourseSqlUtils courseSqlUtils = new CourseSqlUtils(tablename);
 		List<CourseBean> list = courseSqlUtils.GetCousertable();
 		
 		request.setAttribute("coursetable",list);
@@ -40,7 +41,7 @@ public class CourseTableServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doGet(request, response);
 	}
 
 }

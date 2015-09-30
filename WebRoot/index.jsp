@@ -28,6 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<input type="submit" value="提交"/>
     </form>
     <br>
-	<a href="CourseTableServlet">servlet</a></br>
+<!-- 	<a href="CourseTableServlet">servlet</a> -->
   </body>
 </html>

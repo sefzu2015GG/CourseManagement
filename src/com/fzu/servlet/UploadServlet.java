@@ -1,17 +1,21 @@
 package com.fzu.servlet;
 
+import java.util.Date;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fzu.excelandmysql.EtoM;
 
 public class UploadServlet extends HttpServlet {
 
@@ -26,6 +30,8 @@ public class UploadServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("dopost");
+		
+		
 		InputStream fileSource = request.getInputStream();
 		String tempFileName = "E:/tempFile";
 		
@@ -45,13 +51,15 @@ public class UploadServlet extends HttpServlet {
 		RandomAccessFile randomFile = new RandomAccessFile(tempFile, "r");
 		randomFile.readLine();
 		String string = randomFile.readLine();
-		int beginIndex = string.lastIndexOf("\\")+1;
+		String[] stringtemp = string.split("\"");
+		string = stringtemp[stringtemp.length-1];
+		//string 为源文件名
 		
-		int endIndex = string.lastIndexOf("\"");
-		String fileName = string.substring(beginIndex, endIndex);
 		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		String tablename = simpleDateFormat.format(new Date());
+		String fileName = tablename+".xls";
 		System.out.println("filename:" +fileName);
-		
 		
 		randomFile.seek(0);
 		long startPointtion = 0;
@@ -67,7 +75,7 @@ public class UploadServlet extends HttpServlet {
 		randomFile.seek(randomFile.length());
 		long endPointtion = randomFile.getFilePointer();
 		int j =1;
-		while(endIndex>=0&&j<=2){
+		while(endPointtion>=0&&j<=2){
 			endPointtion--;
 			randomFile.seek(endPointtion);
 			if(randomFile.readByte()=='\n'){
@@ -96,10 +104,15 @@ public class UploadServlet extends HttpServlet {
 		tempFile.delete();
 		
 		System.out.println("success");
+		EtoM etoM = new EtoM(realPath+"\\"+fileName, tablename);
+		
 		
 		request.setAttribute("result", "succex");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		request.setAttribute("tablename",tablename);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/CourseTableServlet");
 		dispatcher.forward(request, response);
+		
+		System.out.println("forward");
 	}
 
 }
