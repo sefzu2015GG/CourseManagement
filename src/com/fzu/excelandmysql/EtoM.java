@@ -19,6 +19,7 @@ public class EtoM {
 
 	/**
 	 * 单元测试
+	 * 
 	 * @param argg0
 	 */
 	public static void main(String[] argg0) {
@@ -32,41 +33,45 @@ public class EtoM {
 	private String tablename = null;
 	private static CourseSqlUtils courseSqlUtils = null;
 	private static ChoseSqlUtils choseSqlUtils = null;
-	
+
 	/**
 	 * 构造函数，使用Excel文件创建按数据表
-	 * @param filePath excel表格的路径，由调用者提供
-	 * @param tablename 数据库建表表名，以excel表为名
+	 * 
+	 * @param filePath
+	 *            excel表格的路径，由调用者提供
+	 * @param tablename
+	 *            数据库建表表名，以excel表为名
 	 */
 	public EtoM(String filePath, String tablename) {
 		this.filePath = filePath;
 		this.tablename = tablename;
-		courseSqlUtils =getCourseSqlUtils(tablename);
+		courseSqlUtils = getCourseSqlUtils(tablename);
 		choseSqlUtils = getChoseSqlUtils(tablename);
 		List<CourseBean> data = getExcelFile();
-		//outpr(data);
+		// outpr(data);
 		courseSqlUtils.insert(data);
 	}
 
 	/**
 	 * 根据表名获取相应表的sql工具
+	 * 
 	 * @param tablename
 	 * @return
 	 */
-	public static CourseSqlUtils getCourseSqlUtils( String tablename) {
-		if(courseSqlUtils==null){
+	public static CourseSqlUtils getCourseSqlUtils(String tablename) {
+		if (courseSqlUtils == null) {
 			courseSqlUtils = new CourseSqlUtils(tablename);
 		}
 		return courseSqlUtils;
 	}
-	
+
 	public static ChoseSqlUtils getChoseSqlUtils(String tablename) {
-		if(choseSqlUtils==null){
+		if (choseSqlUtils == null) {
 			choseSqlUtils = new ChoseSqlUtils(tablename);
 		}
 		return choseSqlUtils;
 	}
-	
+
 	public void outpr(List<CourseBean> list) {
 
 		for (int i = 0; i < list.size(); i++) {
@@ -85,7 +90,7 @@ public class EtoM {
 
 			WorkbookSettings workbookSettings = new WorkbookSettings();
 			workbookSettings.setEncoding("utf-8");
-//			workbookSettings.setEncoding("gbk");
+			// workbookSettings.setEncoding("gbk");
 
 			Workbook workbook = Workbook.getWorkbook(fileInputStream);
 

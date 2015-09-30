@@ -29,10 +29,12 @@
 </head>
 
 <body>
-	This is my JSP page.
-	
+	<h2>报课管理系统</h2>
+	<hr>
+
 	<%
-		List<CourseBean> list = (List<CourseBean>) request.getAttribute("coursetable");
+		List<CourseBean> list = (List<CourseBean>) request
+				.getAttribute("coursetable");
 	%>
 	<table border="1">
 		<thead>
