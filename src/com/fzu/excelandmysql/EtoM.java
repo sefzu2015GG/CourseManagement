@@ -41,8 +41,8 @@ public class EtoM {
 	public EtoM(String filePath, String tablename) {
 		this.filePath = filePath;
 		this.tablename = tablename;
-		courseSqlUtils = new CourseSqlUtils(tablename);
-		choseSqlUtils = new ChoseSqlUtils(tablename);
+		courseSqlUtils =getCourseSqlUtils(tablename);
+		choseSqlUtils = getChoseSqlUtils(tablename);
 		List<CourseBean> data = getExcelFile();
 		outpr(data);
 		courseSqlUtils.insert(data);

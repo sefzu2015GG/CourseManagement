@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -21,6 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    Welcome. <br>
+    
+   <form action="UploadServlet" method="post" enctype="multipart/form-data">
+    	请选择excel文件<input id="myfile" name="myfile" type="file" >
+    	<input type="submit" value="提交"/>
+    </form>
+    <br>
+	<a href="CourseTableServlet">servlet</a></br>
   </body>
 </html>

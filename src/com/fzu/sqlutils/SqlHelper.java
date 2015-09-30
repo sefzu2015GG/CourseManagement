@@ -17,18 +17,18 @@ public class SqlHelper {
 	// private static ResultSet;
 	private static ResultSet resultSet = null;
 	private static CallableStatement callableStatement = null;
-	private static String driver = "";
-	private static String url = "";
-	private static String uerName = "";
-	private static String passWord = "";
+	private static String driver = "com.mysql.jdbc.Driver";
+	private static String url = "jdbc:mysql://127.0.0.1:3306/curvar?useUnicode=true&characterEncoding=UTF-8";
+	private static String uerName = "root";
+	private static String passWord = "root";
 
 	private static Properties properties = null;
 	private static FileInputStream fileInputStream = null;
 
-	public static Connection getCon() {
-
-		return connection;
-	}
+	// public static Connection getCon() {
+	//
+	// return connection;
+	// }
 
 	public static PreparedStatement getPreparedStatement() {
 		return preparedStatement;
@@ -43,18 +43,18 @@ public class SqlHelper {
 	}
 
 	/**
-	 *初始化Mysql连接
+	 * 初始化Mysql连接
 	 */
 	static {
 
 		try {
-			fileInputStream = new FileInputStream("file.properties");
-			properties = new Properties();	
-			properties.load(fileInputStream);
-			driver = properties.getProperty("driver");
-			url = properties.getProperty("url");
-			uerName = properties.getProperty("username");
-			passWord = properties.getProperty("password");
+//			fileInputStream = new FileInputStream("file.properties");
+//			properties = new Properties();
+//			properties.load(fileInputStream);
+//			driver = properties.getProperty("driver");
+//			url = properties.getProperty("url");
+//			uerName = properties.getProperty("username");
+//			passWord = properties.getProperty("password");
 
 			Class.forName(driver);
 		} catch (Exception e) {
@@ -74,19 +74,21 @@ public class SqlHelper {
 	}
 
 	public static Connection getConnection() {
+
 		try {
 			connection = DriverManager.getConnection(url, uerName, passWord);
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+
 		return connection;
 
 	}
 
 	/**
 	 * 多条sql处理
+	 * 
 	 * @param sql
 	 * @param parmameters
 	 */
@@ -124,6 +126,7 @@ public class SqlHelper {
 
 	/**
 	 * 单条sql多参数处理
+	 * 
 	 * @param sql
 	 * @param parmameters
 	 */
@@ -161,6 +164,7 @@ public class SqlHelper {
 
 	/**
 	 * update,insert,delete等
+	 * 
 	 * @param sql
 	 * @param parameters
 	 */
@@ -189,6 +193,7 @@ public class SqlHelper {
 	public static ResultSet executeQuery(String sql, Object[] parameters) {
 		try {
 			connection = getConnection();
+			System.out.println("connection status is = "+connection.isClosed());
 			preparedStatement = connection.prepareStatement(sql);
 			if (parameters != null) {
 				for (int i = 0; i < parameters.length; i++) {
@@ -201,12 +206,18 @@ public class SqlHelper {
 		} finally {
 
 		}
+		if(resultSet==null){			
+			System.out.println("result is null");
+		}else{
+			System.out.println("result not null");
+		}
 		return resultSet;
 
 	}
 
 	/**
 	 * 储存过程
+	 * 
 	 * @param sql
 	 * @param parameters
 	 */
@@ -249,7 +260,7 @@ public class SqlHelper {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		} finally {
-			//在由该方法调用者在使用完result之后关闭
+			// 在由该方法调用者在使用完result之后关闭
 		}
 		return resultSet;
 	}

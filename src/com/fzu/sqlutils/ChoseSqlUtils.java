@@ -11,7 +11,7 @@ public class ChoseSqlUtils {
 	}
 
 	private String tableName = "";
-
+	
 	public ChoseSqlUtils(String tableName) {
 		this.tableName = tableName;
 		CreateTable();
@@ -75,6 +75,7 @@ public class ChoseSqlUtils {
 
 	public List<ChoseBean> GetChose() {
 		String sql = "select * from " + tableName + "_choseInfo";
+		System.out.println(sql);
 		List<ChoseBean> res = new ArrayList<ChoseBean>();
 		ResultSet resultSet = SqlHelper.executeQuery(sql, null);
 
